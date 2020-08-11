@@ -9,7 +9,7 @@ import { UserService } from '../service/user-service';
 
 })
 export class InventoryHomeComponent implements OnInit {
-  @Input() inventoryItems: any;
+  inventoryItems: any;
   name: string;
   url: any;
   description: string;
@@ -22,6 +22,7 @@ export class InventoryHomeComponent implements OnInit {
    * on init
    */
   ngOnInit() {
+    this.getinventoryItems();
   }
   /**
    * Opens inventory home component
@@ -33,22 +34,36 @@ export class InventoryHomeComponent implements OnInit {
   saveData(name, description) {
     const updateInventoryDetails = this.user.addInventoryDetails(name, description, this.url);
     updateInventoryDetails.subscribe((data) => {
-      this.user.getInventoryDetails().subscribe((inventoryItems) => {
-        this.inventoryItems = inventoryItems;
-        this.cd.markForCheck();
-      });
+      this.getinventoryItems();
+      this.cd.markForCheck();
     });
-
+    this.name = '';
+    this.description = '';
+    this.url = '';
+    this.cd.markForCheck();
+  }
+  close() {
+    this.name = '';
+    this.description = '';
+    this.url = '';
+    this.cd.markForCheck();
   }
   onSelectFile(event) { // called each time file input changes
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
-
       reader.readAsDataURL(event.target.files[0]); // read file as data url
-
       reader.onload = (event) => { // called once readAsDataURL is completed
         this.url = event.target.result;
       }
     }
+  }
+  // Read all REST Items
+  getinventoryItems() {
+    this.user.getInventoryDetails().subscribe(inventoryItems => {
+      this.inventoryItems = inventoryItems;
+    })
+  }
+  sendDetails(id: string) {
+    this.user.sendDetails(this.inventoryItems.filter(data => data.id === id))
   }
 }

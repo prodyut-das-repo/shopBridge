@@ -2,16 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Inventory } from '../model/model';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 
 export class UserService {
+    private inventoryDetails = new BehaviorSubject(1);
     restItemsUrl = 'https://5f329d0fec8330001613776d.mockapi.io/shopbridge/users';
     constructor(private http: HttpClient) { }
 
     getInventoryDetails() {
         return this.http
-            .get<any[]>(this.restItemsUrl)
+            .get<any[]>(this.restItemsUrl + '?orderby=desc')
             .pipe(map(data => data));
     }
     updateInventoryDetails(name: string, description: string) {
@@ -24,7 +26,7 @@ export class UserService {
         }
         return this.http.put(`${this.restItemsUrl}/${payload.id}`, payload);
     }
-    addInventoryDetails(name: string, description: string, url:string) {
+    addInventoryDetails(name: string, description: string, url: string) {
         const payload = {
             "name": name,
             "description": description,
@@ -33,4 +35,16 @@ export class UserService {
         }
         return this.http.post(`${this.restItemsUrl}`, payload);
     }
+    getinventoryItemsById(id: string) {
+        return this.http
+            .get<any[]>(this.restItemsUrl + `/${id}`)
+            .pipe(map(data => data));
+    }
+    getDetails() {
+        return this.inventoryDetails.asObservable();
+    }
+    sendDetails(res: any) {
+        this.inventoryDetails.next(res);
+    }
+
 }

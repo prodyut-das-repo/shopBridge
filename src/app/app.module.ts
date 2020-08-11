@@ -7,11 +7,13 @@ import { InventoryHomeComponent } from './inventory-home/inventory-home.componen
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { InventoryDetailsComponent } from './inventory-details/inventory-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    InventoryHomeComponent
+    InventoryHomeComponent,
+    InventoryDetailsComponent
   ],
   imports: [
     BrowserModule,

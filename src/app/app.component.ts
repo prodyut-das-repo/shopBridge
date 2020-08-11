@@ -10,13 +10,5 @@ export class AppComponent implements OnInit {
   inventoryItems: any[];
   constructor(private user: UserService) { }
   ngOnInit() {
-    this.getinventoryItems();
-  }
-
-  // Read all REST Items
-  getinventoryItems() {
-    this.user.getInventoryDetails().subscribe(inventoryItems => {
-          this.inventoryItems = inventoryItems;
-        })
   }
 }

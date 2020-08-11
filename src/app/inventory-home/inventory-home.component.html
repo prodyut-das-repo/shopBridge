@@ -6,26 +6,29 @@
             <li class="header">Item Name: {{item.name}} </li>
             <li class="header"><img src="{{item.image}}" height="200" width="200" />
             <li class="grey">Price: {{item.price}}</li>
-            <li class="grey"><a href="#" class="button">Sign Up</a></li>
+            <li class="grey flex">
+                <a [routerLink]="['/details', item.id]" (click)="sendDetails(item.id)" class="button">See Details</a>
+                <a [routerLink]="['/details', item.id]" (click)="sendDetails(item.id)" class="button">Edit</a>
+            </li>
         </ul>
     </div>
 </div>
-
-<ng-template #content let-c="close" let-d="dismiss">
+<ng-template #content let-close="close" let-dismiss="dismiss">
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Add a new inventory item</h4>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <button type="button" class="close" aria-label="Close" (click)="dismiss('Cross click'); close()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
         <input type="text" [(ngModel)]="name">
         <input type="text" [(ngModel)]="description">
-        <img [src]="url" height="200"> <br/>
+        <span *ngIf="url"> <img [src]="url" height="200"> <br />
+        </span>
         <input type='file' (change)="onSelectFile($event)">
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark"
-            (click)="saveData(name, description);c('Save click');">Save</button>
+            (click)="saveData(name, description);close('Save click');">Save</button>
     </div>
 </ng-template>
