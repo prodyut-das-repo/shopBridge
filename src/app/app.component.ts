@@ -17,7 +17,6 @@ export class AppComponent implements OnInit {
   getinventoryItems() {
     this.user.getInventoryDetails().subscribe(inventoryItems => {
           this.inventoryItems = inventoryItems;
-          console.log(this.inventoryItems);
         })
   }
 }
