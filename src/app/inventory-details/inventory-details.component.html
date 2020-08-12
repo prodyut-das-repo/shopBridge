@@ -18,8 +18,7 @@
     <hr>
 </div>
 <div class="flex">
-    <button class="btn btn-success"> Go Back</button>
-
+    <button class="btn btn-success" [routerLink]="['/']"> Go Back</button>
     <button class="btn btn-success" [routerLink]="['/details', numId + 1]" (click)="next(details.id)"> View next of
         the list</button>
 </div>

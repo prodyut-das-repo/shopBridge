@@ -21,14 +21,31 @@
         </button>
     </div>
     <div class="modal-body">
-        <input type="text" [(ngModel)]="name">
-        <input type="text" [(ngModel)]="description">
-        <span *ngIf="url"> <img [src]="url" height="200"> <br />
-        </span>
-        <input type='file' (change)="onSelectFile($event)">
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark"
-            (click)="saveData(name, description);close('Save click');">Save</button>
+        <div class="container">
+            <form [formGroup]="inventoryForm" (ngSubmit)="saveData(inventoryForm.value)">
+                <div class="form-group">
+                    <label for="email">Name:*</label>
+                    <input formControlName="name" type="text" class="form-control" id="name"
+                        placeholder="Enter Name of Inventory" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Description:*</label>
+                    <input formControlName="description" type="text" class="form-control"
+                        id="des" placeholder="Enter Description of Inventory" name="des">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Price:*</label>
+                    <input formControlName="price" type="text" class="form-control" id="price"
+                        placeholder="Enter Price of Inventory" name="price">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Upload Image (optional):</label> <br>
+                    <span *ngIf="url"> <img [src]="url" height="200"> <br/>
+                    </span>
+                    <input type='file' id="price"(change)="onSelectFile($event)">
+                </div>
+                <button type="submit" [disabled]="!inventoryForm.valid" class="btn btn-outline-dark">Save</button>
+            </form>
+        </div>
     </div>
 </ng-template>

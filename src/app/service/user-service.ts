@@ -26,11 +26,11 @@ export class UserService {
         }
         return this.http.put(`${this.restItemsUrl}/${payload.id}`, payload);
     }
-    addInventoryDetails(name: string, description: string, url: string) {
+    addInventoryDetails(name: string, description: string, price: string, url: string) {
         const payload = {
             "name": name,
             "description": description,
-            "price": "price 1",
+            "price": price,
             "image": url
         }
         return this.http.post(`${this.restItemsUrl}`, payload);

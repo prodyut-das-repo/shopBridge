@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../service/user-service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-inventory-home',
   templateUrl: './inventory-home.component.html',
@@ -10,9 +11,10 @@ import { UserService } from '../service/user-service';
 })
 export class InventoryHomeComponent implements OnInit {
   inventoryItems: any;
-  name: string;
   url: any;
-  description: string;
+  inventoryForm: FormGroup;
+  modalReference: any;
+  closeResult: string;
   constructor(config: NgbModalConfig, private modalService: NgbModal, private user: UserService, private cd: ChangeDetectorRef) {
     // customize default values of modals used by this component tree
     config.backdrop = 'static';
@@ -23,31 +25,41 @@ export class InventoryHomeComponent implements OnInit {
    */
   ngOnInit() {
     this.getinventoryItems();
+    this.inventoryForm = new FormGroup({
+      name: new FormControl("", Validators.compose([
+        Validators.required,
+        Validators.minLength(3)])),
+      description: new FormControl("", Validators.compose([
+        Validators.required,
+        Validators.minLength(3)])),
+      price: new FormControl("", Validators.compose([
+        Validators.required,
+        Validators.minLength(1)])),
+
+    });
   }
   /**
    * Opens inventory home component
    * @param content 
    */
   open(content) {
-    this.modalService.open(content, { centered: true });
+    this.modalReference = this.modalService.open(content, { centered: true });
   }
-  saveData(name, description) {
-    const updateInventoryDetails = this.user.addInventoryDetails(name, description, this.url);
+  saveData(value) {
+    const updateInventoryDetails = this.user.addInventoryDetails(value.name, value.description, value.price, this.url);
     updateInventoryDetails.subscribe((data) => {
       this.getinventoryItems();
+      if(data){
+        this.modalReference.close();
+        this.inventoryForm.reset();
+      }
       this.cd.markForCheck();
+    }, error => {
+      alert('Please select photo of desired size')
     });
-    this.name = '';
-    this.description = '';
-    this.url = '';
     this.cd.markForCheck();
   }
-  close() {
-    this.name = '';
-    this.description = '';
-    this.url = '';
-    this.cd.markForCheck();
-  }
+
   onSelectFile(event) { // called each time file input changes
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
