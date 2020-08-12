@@ -51,8 +51,10 @@ export class InventoryHomeComponent implements OnInit {
       this.inventoryForm.get('description').setValue(item.description);
       this.inventoryForm.get('price').setValue(item.price);
     }
+    if (!item) {
+      this.id = '';
+    }
     this.modalReference = this.modalService.open(content, { centered: true });
-
   }
   clear() {
     this.url = '';

@@ -15,7 +15,8 @@
 </div>
 <ng-template #content let-close="close" let-dismiss="dismiss">
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Add a new inventory item</h4>
+        <h4 *ngIf="id===''" class="modal-title" id="modal-basic-title">Add a new inventory item</h4>
+        <h4 *ngIf="id!==''" class="modal-title" id="modal-basic-title">Edit inventory item</h4>
         <button type="button" class="close" aria-label="Close" (click)="dismiss('Cross click'); clear()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -46,8 +47,8 @@
                 </div>
                 <button *ngIf="id ===''" type="submit" [disabled]="!inventoryForm.valid"
                     class="btn btn-outline-dark">Save</button>
-                <button *ngIf="id !=''" type="button" (click)="saveEdit(inventoryForm.value)" [disabled]="!inventoryForm.valid"
-                    class="btn btn-outline-dark">Save Edit</button>
+                <button *ngIf="id !==''" type="button" (click)="saveEdit(inventoryForm.value)"
+                    [disabled]="!inventoryForm.valid" class="btn btn-outline-dark">Save Edit</button>
 
             </form>
         </div>
