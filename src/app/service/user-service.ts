@@ -40,11 +40,17 @@ export class UserService {
             .get<any[]>(this.restItemsUrl + `/${id}`)
             .pipe(map(data => data));
     }
-    getDetails() {
-        return this.inventoryDetails.asObservable();
-    }
-    sendDetails(res: any) {
-        this.inventoryDetails.next(res);
+
+
+    saveEdit(name: string, description: string, price: string, url: string, id: string) {
+        const payload = {
+            "name": name,
+            "description": description,
+            "price": price,
+            "image": url
+        }
+        return this.http.put(`${this.restItemsUrl}/${id}`, payload);
+
     }
 
 }

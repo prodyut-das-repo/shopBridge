@@ -4,11 +4,11 @@
     <div class="columns" *ngFor="let item of inventoryItems">
         <ul class="price">
             <li class="header">Item Name: {{item.name}} </li>
-            <li class="header"><img src="{{item.image}}" height="200" width="200" />
+            <li class="header"><img *ngIf="item.image!=''" src="{{item.image}}" height="200" width="200" />
             <li class="grey">Price: {{item.price}}</li>
             <li class="grey flex">
-                <a [routerLink]="['/details', item.id]" (click)="sendDetails(item.id)" class="button">See Details</a>
-                <a [routerLink]="['/details', item.id]" (click)="sendDetails(item.id)" class="button">Edit</a>
+                <a [routerLink]="['/details', item.id]" class="button">See Details</a>
+                <a (click)="open(content, item)" class="button">Edit</a>
             </li>
         </ul>
     </div>
@@ -16,7 +16,7 @@
 <ng-template #content let-close="close" let-dismiss="dismiss">
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Add a new inventory item</h4>
-        <button type="button" class="close" aria-label="Close" (click)="dismiss('Cross click'); close()">
+        <button type="button" class="close" aria-label="Close" (click)="dismiss('Cross click'); clear()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -30,21 +30,25 @@
                 </div>
                 <div class="form-group">
                     <label for="pwd">Description:*</label>
-                    <input formControlName="description" type="text" class="form-control"
-                        id="des" placeholder="Enter Description of Inventory" name="des">
+                    <input formControlName="description" type="text" class="form-control" id="des"
+                        placeholder="Enter Description of Inventory" name="des" value=''>
                 </div>
                 <div class="form-group">
                     <label for="pwd">Price:*</label>
                     <input formControlName="price" type="text" class="form-control" id="price"
-                        placeholder="Enter Price of Inventory" name="price">
+                        placeholder="Enter Price of Inventory" name="price" value="">
                 </div>
                 <div class="form-group">
                     <label for="pwd">Upload Image (optional):</label> <br>
-                    <span *ngIf="url"> <img [src]="url" height="200"> <br/>
+                    <span *ngIf="url"> <img [src]="url" height="200" value="" name="url"> <br />
                     </span>
-                    <input type='file' id="price"(change)="onSelectFile($event)">
+                    <input type='file' id="price" (change)="onSelectFile($event)">
                 </div>
-                <button type="submit" [disabled]="!inventoryForm.valid" class="btn btn-outline-dark">Save</button>
+                <button *ngIf="id ===''" type="submit" [disabled]="!inventoryForm.valid"
+                    class="btn btn-outline-dark">Save</button>
+                <button *ngIf="id !=''" type="button" (click)="saveEdit(inventoryForm.value)" [disabled]="!inventoryForm.valid"
+                    class="btn btn-outline-dark">Save Edit</button>
+
             </form>
         </div>
     </div>
