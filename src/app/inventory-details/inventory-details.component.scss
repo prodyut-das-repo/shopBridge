@@ -1,0 +1,58 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,700);
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    background-color: #eaeaea;
+    font-family: Open Sans;
+    font-weight: 300;
+    line-height: 1.8;
+    background-image: url(https://dl.dropboxusercontent.com/u/26808427/cdn/bg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.contact {
+    position: absolute;
+    top: 30px;
+    left: 50px;
+    z-index: 6;
+    color: rgba(0, 0, 0, .5);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 15px;
+    border-radius: 20px;
+    background: rgba(0, 0, 0, .1);
+    line-height: 1;
+    cursor: default;
+    box-shadow: 0 1px 0px rgba(255, 255, 255, .1);
+}
+
+.cards {
+    z-index: -1;
+    margin: auto;
+    background: #fefefe;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .1), 3px 5px 20px rgba(0, 0, 0, .2);
+    width: 768px;
+    height: 470px;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding: 30px;
+    .card {
+        display: inline-block;
+        margin-right: 20px;
+    }
+}
+.flex{
+    padding:6%;
+    display: flex;
+    justify-content:space-evenly;
+}
