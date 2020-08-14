@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../service/user-service';
+import swal from 'sweetalert';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-inventory-home',
@@ -16,16 +17,18 @@ export class InventoryHomeComponent implements OnInit {
   modalReference: any;
   closeResult: string;
   id = '';
+  loader = false;
   constructor(private fb: FormBuilder, config: NgbModalConfig, private modalService: NgbModal, private user: UserService, private cd: ChangeDetectorRef) {
     // customize default values of modals used by this component tree
     config.backdrop = 'static';
     config.keyboard = false;
   }
+
   /**
    * on init
    */
   ngOnInit() {
-    this.getinventoryItems();
+    this.getInventoryItems();
     this.inventoryForm = new FormGroup({
       name: new FormControl("", Validators.compose([
         Validators.required,
@@ -39,6 +42,7 @@ export class InventoryHomeComponent implements OnInit {
 
     });
   }
+
   /**
    * Opens inventory home component
    * @param content 
@@ -56,45 +60,62 @@ export class InventoryHomeComponent implements OnInit {
     }
     this.modalReference = this.modalService.open(content, { centered: true });
   }
+
+  /**
+   * Clears inventory input fields
+   */
   clear() {
     this.url = '';
     this.inventoryForm.reset();
   }
+
   /**
    * Saves data
    * @param value 
    */
   saveData(value) {
+    this.loader = true;
     const updateInventoryDetails = this.user.addInventoryDetails(value.name, value.description, value.price, this.url);
     updateInventoryDetails.subscribe((data) => {
-      this.getinventoryItems();
+      this.getInventoryItems();
       if (data) {
         this.modalReference.close();
         this.inventoryForm.reset();
         this.url = '';
+        this.loader = false;
       }
       this.cd.markForCheck();
     }, error => {
-      alert('Please select photo of desired size')
+      this.loader = false;
+      swal('Please select photo of desired size')
     });
     this.cd.markForCheck();
   }
 
+  /**
+   * Saves edit
+   * @param value 
+   */
   saveEdit(value) {
+    this.loader = true;
     const updateInventoryDetails = this.user.saveEdit(value.name, value.description, value.price, this.url, this.id);
     updateInventoryDetails.subscribe((data) => {
-      this.getinventoryItems();
+      this.getInventoryItems();
       if (data) {
         this.modalReference.close();
         this.inventoryForm.reset();
         this.url = '';
+        this.loader = false;
+
       }
       this.cd.markForCheck();
     }, error => {
-      alert('Please select photo of desired size')
+      this.loader = false;
+      swal('Please select photo of desired size')
     });
     this.cd.markForCheck();
   }
+
   /**
    * Determines whether select file on
    * @param event 
@@ -110,8 +131,39 @@ export class InventoryHomeComponent implements OnInit {
       }
     }
   }
-  // Read all REST Items
-  getinventoryItems() {
+
+  /**
+   * Deletes item
+   * @param id 
+  /**
+   */
+  deleteItem(id: string) {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          this.user.deleteItem(id).subscribe(res => {
+            if (res) {
+              swal("Your file has been deleted!", {
+                icon: "success",
+              }); this.getInventoryItems();
+              this.cd.markForCheck();
+            }
+          }, error => {
+            swal("Could not delete the file, please try again");
+          })
+        }
+      });
+  }
+
+  /**
+   * Gets inventory items
+   */
+  getInventoryItems() {
     this.user.getInventoryDetails().subscribe(inventoryItems => {
       this.inventoryItems = inventoryItems;
     })

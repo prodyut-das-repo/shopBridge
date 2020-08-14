@@ -3,15 +3,17 @@
 <div class="center">
     <div class="columns" *ngFor="let item of inventoryItems">
         <ul class="price">
-            <li class="header">Item Name: {{item.name}} </li>
+            <li class="header">Item Name: {{item.name}}</li>
             <li class="header"><img *ngIf="item.image!=''" src="{{item.image}}" height="200" width="200" />
             <li class="grey">Price: {{item.price}}</li>
             <li class="grey flex">
-                <a [routerLink]="['/details', item.id]" class="button">See Details</a>
-                <a (click)="open(content, item)" class="button">Edit</a>
+                <a [routerLink]="['/details', item.id]" class="button">Details</a>
+                <a (click)="open(content, item)" class="button">Edit</a>                
+                <a (click)="deleteItem(item.id)"class="button"><i class="material-icons">delete</i></a>
             </li>
         </ul>
     </div>
+
 </div>
 <ng-template #content let-close="close" let-dismiss="dismiss">
     <div class="modal-header">
@@ -41,15 +43,17 @@
                 </div>
                 <div class="form-group">
                     <label for="pwd">Upload Image (optional):</label> <br>
-                    <span *ngIf="url"> <img [src]="url" height="200" value="" name="url"> <br />
+                    <span class="flex1" *ngIf="url"> 
+                        <img [src]="url" height="200" value="" name="url">
+                        <div *ngIf="loader" class="loader"></div> <br />
                     </span>
                     <input type='file' id="price" (change)="onSelectFile($event)">
                 </div>
+                <span class="mi mi-face"></span>
                 <button *ngIf="id ===''" type="submit" [disabled]="!inventoryForm.valid"
                     class="btn btn-outline-dark">Save</button>
                 <button *ngIf="id !==''" type="button" (click)="saveEdit(inventoryForm.value)"
                     [disabled]="!inventoryForm.valid" class="btn btn-outline-dark">Save Edit</button>
-
             </form>
         </div>
     </div>
