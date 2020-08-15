@@ -88,7 +88,7 @@ export class InventoryHomeComponent implements OnInit {
       this.cd.markForCheck();
     }, error => {
       this.loader = false;
-      swal('Please select photo of desired size')
+      swal('Please select photo of desired size or check the type of file')
     });
     this.cd.markForCheck();
   }

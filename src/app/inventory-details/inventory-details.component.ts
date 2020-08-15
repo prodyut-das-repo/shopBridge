@@ -43,7 +43,7 @@ export class InventoryDetailsComponent implements OnInit {
       this.cd.markForCheck();
     }, error => {
       if (error) {
-        swal("Oops!", "Something went wrong! Please check network connectivity", "error");
+        swal("Oops!", "Something went wrong! Item not found", "error");
       }
     })
   }
