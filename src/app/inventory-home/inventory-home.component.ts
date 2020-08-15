@@ -79,6 +79,7 @@ export class InventoryHomeComponent implements OnInit {
     updateInventoryDetails.subscribe((data) => {
       this.getInventoryItems();
       if (data) {
+        swal('Inventory Added!','','success')
         this.modalReference.close();
         this.inventoryForm.reset();
         this.url = '';

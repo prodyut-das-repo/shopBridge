@@ -1,14 +1,14 @@
 <div class="navbar">
     <a href="#home" class="button_add">ShopBridge</a>
-    <button class="button_add radius" (click)="open(content)"><span class="material-icons">add</span>Add New
+    <button class="button_add radius" (click)="open(content,'')"><span class="material-icons">add</span>Add New
         Inventory</button>
 </div>
 <div class="center">
     <div class="columns" *ngFor="let item of inventoryItems">
         <ul class="price">
-            <li class="header">Item Name: {{item.name}}</li>
+            <li class="header">{{item.name}}</li>
             <li class="header"><img *ngIf="item.image!=''" src="{{item.image}}" height="200" width="200" />
-            <li class="grey">Price: {{item.price}}</li>
+            <li class="grey">Price: ₹{{item.price}}</li>
             <li class="grey flex">
                 <a [routerLink]="['/details', item.id]" class="button">Details</a>
                 <a (click)="open(content, item)" class="button"><span class="material-icons">
@@ -43,7 +43,7 @@
                 </div>
                 <div class="form-group">
                     <label for="pwd">Price:*</label>
-                    <input formControlName="price" type="text" class="form-control" id="price"
+                    <input formControlName="price" type="number" class="form-control" id="price"
                         placeholder="Enter Price of Inventory" name="price" value="">
                 </div>
                 <div class="form-group">
@@ -60,7 +60,7 @@
                     </label>
                     <input type='file' id="file-upload" (change)="onSelectFile($event)">
                     <br>
-                    <i class="red">*Size must be between 1 KB and 45 KB</i>
+                    <i class="red">*Size must be between 1 KB and 50 KB</i>
                 </div>
                 <button *ngIf="id ===''" type="submit" [disabled]="!inventoryForm.valid"
                     class="btn btn-outline-dark">Save</button>

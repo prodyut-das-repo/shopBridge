@@ -43,7 +43,7 @@ export class UserService {
      * @param url 
      * @returns  
      */
-    addInventoryDetails(name: string, description: string, price: string, url: string) {
+    addInventoryDetails(name: string, description: string, price: number, url: string) {
         const payload = {
             "name": name,
             "description": description,
