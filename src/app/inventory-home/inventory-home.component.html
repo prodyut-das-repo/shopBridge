@@ -1,5 +1,8 @@
-<button class="btn btn-primary" (click)="open(content)">Add New Inventory</button>
-<br>
+<div class="navbar">
+    <a href="#home" class="button_add">ShopBridge</a>
+    <button class="button_add radius" (click)="open(content)"><span class="material-icons">add</span>Add New
+        Inventory</button>
+</div>
 <div class="center">
     <div class="columns" *ngFor="let item of inventoryItems">
         <ul class="price">
@@ -8,8 +11,10 @@
             <li class="grey">Price: {{item.price}}</li>
             <li class="grey flex">
                 <a [routerLink]="['/details', item.id]" class="button">Details</a>
-                <a (click)="open(content, item)" class="button">Edit</a>                
-                <a (click)="deleteItem(item.id)"class="button"><i class="material-icons">delete</i></a>
+                <a (click)="open(content, item)" class="button"><span class="material-icons">
+                        edit
+                    </span></a>
+                <a (click)="deleteItem(item.id)" class="button"><i class="material-icons">delete</i></a>
             </li>
         </ul>
     </div>
@@ -42,14 +47,21 @@
                         placeholder="Enter Price of Inventory" name="price" value="">
                 </div>
                 <div class="form-group">
-                    <label for="pwd">Upload Image (optional):</label> <br>
-                    <span class="flex1" *ngIf="url"> 
-                        <img [src]="url" height="200" value="" name="url">
-                        <div *ngIf="loader" class="loader"></div> <br />
+                    <label for="pwd">Upload Image (optional):</label><br>
+                    <span class="flex1" *ngIf="url">
+                        <img [src]="url" height="200" width="200" value="" name="url">
+                        <div *ngIf="loader" class="loader"></div>
                     </span>
-                    <input type='file' id="price" (change)="onSelectFile($event)">
+                    <br>
+                    <label for="file-upload" class="button_add radius">
+                        <span class="material-icons">
+                            cloud_upload
+                        </span> Click to upload image
+                    </label>
+                    <input type='file' id="file-upload" (change)="onSelectFile($event)">
+                    <br>
+                    <i class="red">*Size must be between 1 KB and 45 KB</i>
                 </div>
-                <span class="mi mi-face"></span>
                 <button *ngIf="id ===''" type="submit" [disabled]="!inventoryForm.valid"
                     class="btn btn-outline-dark">Save</button>
                 <button *ngIf="id !==''" type="button" (click)="saveEdit(inventoryForm.value)"

@@ -1,2 +1,48 @@
 /* You can add global styles to this file, and also import other style files */
+
 @import url('../node_modules/material-design-icons-iconfont/dist/material-design-icons.css');
+.navbar {
+    overflow: hidden;
+    box-shadow: 5px 10px 8px #1d1c1c;
+    background-color: #124857;
+    border-radius: 8px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.main {
+    padding: 16px;
+    margin-top: 30px;
+    height: 1500px;
+    /* Used in this example to enable scrolling */
+}
+
+.button_add {
+    background-color: #000000;
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    box-shadow: 0px 0px 98px #ffffff;
+    border-radius: 26px;
+    cursor: pointer;
+    border:none;
+    outline: none;
+}
+// a:hover {
+//     color: white;
+//     cursor: pointer;
+// }

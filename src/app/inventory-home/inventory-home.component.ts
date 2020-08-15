@@ -111,7 +111,7 @@ export class InventoryHomeComponent implements OnInit {
       this.cd.markForCheck();
     }, error => {
       this.loader = false;
-      swal('Please select photo of desired size')
+      swal('Please select photo of desired size or check the type of file')
     });
     this.cd.markForCheck();
   }
@@ -140,15 +140,16 @@ export class InventoryHomeComponent implements OnInit {
   deleteItem(id: string) {
     swal({
       title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this imaginary file!",
+      text: "Once deleted, you won't be able to recover this inventory!",
       icon: "warning",
       dangerMode: true,
+      buttons: ['Cancel', true]
     })
       .then((willDelete) => {
         if (willDelete) {
           this.user.deleteItem(id).subscribe(res => {
             if (res) {
-              swal("Your file has been deleted!", {
+              swal("Inventory has been deleted!", {
                 icon: "success",
               }); this.getInventoryItems();
               this.cd.markForCheck();

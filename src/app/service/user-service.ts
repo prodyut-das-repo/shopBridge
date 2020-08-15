@@ -16,7 +16,7 @@ export class UserService {
      */
     getInventoryDetails() {
         return this.http
-            .get<any[]>(this.restItemsUrl + '?orderby=desc')
+            .get<any[]>(this.restItemsUrl)
             .pipe(map(data => data));
     }
     /**

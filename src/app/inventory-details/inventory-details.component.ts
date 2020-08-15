@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, HostListener } from '@angular/core';
 import { UserService } from '../service/user-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert';
@@ -16,7 +16,7 @@ export class InventoryDetailsComponent implements OnInit {
   routeParam: number;
 
   constructor(private user: UserService, private route: ActivatedRoute, private service: RouteParamsService, private cd: ChangeDetectorRef,
-    private router : Router) {
+    private router: Router) {
     route.params
       .subscribe(params => service.id
         .next(params && params['id'] || undefined));
@@ -33,7 +33,7 @@ export class InventoryDetailsComponent implements OnInit {
     }
     this.user.getInventoryDetails().subscribe((inventory) => {
       this.inventory = inventory;
-    })
+    });
   }
   getinventoryItemsById(id: string) {
     this.user.getinventoryItemsById(id).subscribe(inventoryItems => {
@@ -43,20 +43,31 @@ export class InventoryDetailsComponent implements OnInit {
       this.cd.markForCheck();
     }, error => {
       if (error) {
-        swal("list ended!")
+        swal("Oops!", "Something went wrong! Please check network connectivity", "error");
       }
     })
   }
   next(id: string) {
     let numId = Number(id);
     numId = numId + 1;
-    for (let i = numId; i < numId + this.inventory.length; i++) {
+    for (let i = numId; i < (numId + this.inventory.length); i++) {
       let found = this.inventory.some(el => el.id === i.toString());
       if (found) {
         this.routeParam = i;
         this.getinventoryItemsById(i.toString());
         this.cd.markForCheck();
+        break;
       }
     }
+    if (numId > this.inventory.length) {
+      swal("List ended!", "Please press 'Go Back' to go Home!", "info");
+
+    }
+  }
+  @HostListener('window:popstate', ['$event'])
+  onBrowserBackBtnClose(event: Event) {
+    console.log('back button pressed');
+    event.preventDefault();
+    this.router.navigate([''], { replaceUrl: true });
   }
 }

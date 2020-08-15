@@ -1,3 +1,6 @@
+<div class="navbar">
+    <a href="#home" class="button_add">ShopBridge</a>
+  </div>
 <div class="cards" *ngIf="details">
     <div class="contact">Details</div>
     <table class="table">
@@ -18,7 +21,7 @@
     <hr>
 </div>
 <div class="flex">
-    <button class="btn btn-success" [routerLink]="['/']"> Go Back</button>
-    <button class="btn btn-success"  (click)="next(details.id)"> View next of
+    <button class="btn btn-success" [routerLink]="['/']"> Go back to Home</button>
+    <button class="btn btn-success"  (click)="next(details.id)"> View next details of
         the list</button>
 </div>

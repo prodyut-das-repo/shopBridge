@@ -1,11 +1,16 @@
-* {
-    box-sizing: border-box;
+body {
+    margin: 0;
+    font-family: Lato, sans-serif;
 }
 
 .columns {
     float: left;
     width: 25%;
     padding: 8px;
+}
+
+.center {
+    padding: 3%;
 }
 
 .price {
@@ -51,9 +56,12 @@
     cursor: pointer;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 1140px) {
     .columns {
         width: 100%;
+    }
+    .center {
+        padding: 12%;
     }
 }
 
@@ -65,9 +73,11 @@
     display: flex;
     justify-content: space-evenly;
 }
-.flex1{
+
+.flex1 {
     display: flex;
 }
+
 .loader {
     border: 16px solid #f3f3f3;
     border-radius: 50%;
@@ -95,4 +105,32 @@
     100% {
         transform: rotate(360deg);
     }
+}
+
+.padding {
+    padding: 4%
+}
+
+.radius {
+    border-radius: 5px !important;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.red {
+    color: red;
+    font-size: 13px;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: skyblue;
+}
+label{
+font-weight: 700;
 }

@@ -6,13 +6,10 @@
 body {
     min-height: 100vh;
     display: flex;
-    background-color: #eaeaea;
-    font-family: Open Sans;
+    background-color: #cecece;
+    font-family: Lato, sans-serif;
     font-weight: 300;
     line-height: 1.8;
-    background-image: url(https://dl.dropboxusercontent.com/u/26808427/cdn/bg.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
 }
 
 .contact {
@@ -51,8 +48,10 @@ body {
         margin-right: 20px;
     }
 }
-.flex{
-    padding:6%;
+
+.flex {
+    padding: 6%;
     display: flex;
-    justify-content:space-evenly;
+    justify-content: space-evenly;
 }
+
