@@ -59,10 +59,6 @@ export class InventoryDetailsComponent implements OnInit {
         break;
       }
     }
-    if (numId > this.inventory.length) {
-      swal("List ended!", "Please press 'Go Back' to go Home!", "info");
-
-    }
   }
   @HostListener('window:popstate', ['$event'])
   onBrowserBackBtnClose(event: Event) {
