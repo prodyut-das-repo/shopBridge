@@ -1,27 +1,30 @@
 <div class="navbar">
     <a href="#home" class="button_add">ShopBridge</a>
-  </div>
+</div>
 <div class="cards" *ngIf="details">
     <div class="contact">Details</div>
     <table class="table">
         <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Image</th>
+            <th>Name:</th>
+            <td>{{details.name}}</td>
         </tr>
         <tr>
-            <td>{{details.name}}</td>
+            <th>Description:</th>
             <td>{{details.description}}</td>
+        </tr>
+        <tr>
+            <th>Price:</th>
             <td>₹{{details.price}}</td>
+        </tr>
+        <tr>
+            <th>Image:</th>
             <td><img src="{{details.image}}" height="200" width="200" /></td>
-
         </tr>
     </table>
     <hr>
 </div>
 <div class="flex">
     <button class="btn btn-success" [routerLink]="['/']"> Go back to Home</button>
-    <button class="btn btn-success"  (click)="next(details.id)"> View next details of
+    <button class="btn btn-success" (click)="next(details.id)"> View next details of
         the list</button>
 </div>
