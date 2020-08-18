@@ -74,12 +74,15 @@ export class InventoryHomeComponent implements OnInit {
    * @param value 
    */
   saveData(value) {
+    if (this.url === '' || !this.url || this.url === null || this.url === undefined) {
+      this.url = "https://azharfitnesscenter.com/images/nopic.png"
+    }
     this.loader = true;
     const updateInventoryDetails = this.user.addInventoryDetails(value.name, value.description, value.price, this.url);
     updateInventoryDetails.subscribe((data) => {
       this.getInventoryItems();
       if (data) {
-        swal('Inventory Added!','','success')
+        swal('Inventory Added!', '', 'success')
         this.modalReference.close();
         this.inventoryForm.reset();
         this.url = '';
@@ -88,7 +91,8 @@ export class InventoryHomeComponent implements OnInit {
       this.cd.markForCheck();
     }, error => {
       this.loader = false;
-      swal('Please select photo of desired size or check the type of file')
+      swal('Please select photo of desired size or check the type of file');
+      this.url = '';
     });
     this.cd.markForCheck();
   }
@@ -98,6 +102,9 @@ export class InventoryHomeComponent implements OnInit {
    * @param value 
    */
   saveEdit(value) {
+    if (this.url === '' || !this.url || this.url === null || this.url === undefined) {
+      this.url = "https://azharfitnesscenter.com/images/nopic.png"
+    }
     this.loader = true;
     const updateInventoryDetails = this.user.saveEdit(value.name, value.description, value.price, this.url, this.id);
     updateInventoryDetails.subscribe((data) => {
@@ -112,7 +119,8 @@ export class InventoryHomeComponent implements OnInit {
       this.cd.markForCheck();
     }, error => {
       this.loader = false;
-      swal('Please select photo of desired size or check the type of file')
+      swal('Please select photo of desired size or check the type of file');
+      this.url = '';
     });
     this.cd.markForCheck();
   }
