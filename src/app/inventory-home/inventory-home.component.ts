@@ -176,6 +176,8 @@ export class InventoryHomeComponent implements OnInit {
   getInventoryItems() {
     this.user.getInventoryDetails().subscribe(inventoryItems => {
       this.inventoryItems = inventoryItems;
+      this.inventoryItems = Array.from(this.inventoryItems);
+      console.log(typeof this.inventoryItems);
     })
   }
 }
