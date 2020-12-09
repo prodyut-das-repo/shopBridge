@@ -1,6 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import url('../node_modules/material-design-icons-iconfont/dist/material-design-icons.css');
+
+body{
+    overflow: hidden;
+}
 .navbar {
     overflow: hidden;
     box-shadow: 5px 10px 8px #1d1c1c;

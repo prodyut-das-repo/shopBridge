@@ -9,8 +9,15 @@ body {
     padding: 8px;
 }
 
+.navbar {
+    position: fixed;
+}
+
 .center {
-    padding: 3%;
+    padding: 2%;
+    padding-top: 100px;
+    overflow: scroll;
+    height: 100vh;
 }
 
 .price {
@@ -62,6 +69,7 @@ body {
     }
     .center {
         padding: 12%;
+        padding-top: 136px;
     }
 }
 
@@ -131,6 +139,7 @@ input[type="file"] {
     cursor: pointer;
     background-color: skyblue;
 }
-label{
-font-weight: 700;
+
+label {
+    font-weight: 700;
 }
